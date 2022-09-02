@@ -1,23 +1,17 @@
-## crime
-
-- **c**ustom
-- **r**untime
-- **i**nter-
-- **m**edia
-- **e**ngine
+[ todo: put some shields here ]
 
 ### What is crime
 
-**crime** -- /krʌɪm/
-noun
+**crime**&nbsp; &mdash; &nbsp; /krʌɪm/  
+_noun_
 
-> an action or omission which constitutes an offence and is punishable by law.
-> "shoplifting was a serious crime"
+an action or omission which constitutes an offence and is punishable by law.  
+"shoplifting was a serious crime"
 
-### No but really
+### No but like really
 
-**crime** (stylised in all lowercase) aims to provide a custom runtime and transpiler for the [inter-media engine](#ime.md). we're trying to provide a react-like experience using j/tsx-like files. it should just feel nice an intuitive to use.
+crime, or custom runtime inter-media engine, is a web development framework based on others like react and svelte. it aims to provide a fast an intuitive developer experience and an easily extendable build.
 
-### okay so we're still in super early beta
+### Stability
 
-i mean not even beta we're still developing it
+we are **not** stable. we literally have just started development on this, so maybe wait until at least the first beta release lol.
