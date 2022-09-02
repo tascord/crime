@@ -1,0 +1,7 @@
+test/
+src/
+meta/
+
+.proxyrc.json
+tsconfig.json
+.parcel-cache/

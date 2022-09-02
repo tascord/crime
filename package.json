@@ -1,0 +1,39 @@
+{
+  "name": "crime",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "custom runtime inter-media engine",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsc-watch --onSuccess \"node dist/index.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tascord/crime.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tascord/crime/issues"
+  },
+  "homepage": "https://github.com/tascord/crime#readme",
+  "devDependencies": {
+    "@types/node": "^18.7.14",
+    "parcel": "^2.7.0",
+    "tsc-watch": "^5.0.3"
+  },
+  "dependencies": {
+    "@parcel/config-default": "^2.7.0",
+    "@parcel/core": "^2.7.0",
+    "chalk": "^5.0.1",
+    "idb-keyval": "^6.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.3.0"
+  }
+}
