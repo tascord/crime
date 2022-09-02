@@ -1,3 +1,5 @@
+![Logo](/meta/header.png)
+
 [ todo: put some shields here ]
 
 ### What is crime
