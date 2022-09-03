@@ -29,15 +29,15 @@ export function before() {
 export default function () {
 
     const [state, setState] = useState<{ [key: string]: any }>({ x: 0 });
-    const [store, setStore] = useState<null | UseStore>();
+    const [store, setStore] = useState<null | [UseStore]>();
 
     // use idb with a store of the project name & the current file hash
     useMemo(async () => {
-        const store = createStore('crime', 'index');
-        setStore(store);
+        const created_store = createStore('crime', 'index');
+        setStore([created_store]);
 
         const new_state = {};
-        (await entries(store))
+        (await entries(created_store))
             .forEach(([key, value]) => state[key.toString()] = value);
 
         setState({ ...state, ...new_state });
@@ -48,10 +48,7 @@ export default function () {
     const [get, set] = [
         (k: string) => state![k],
         async (k: string, v: any) => {
-
-            console.log(`Setting ${k} to ${v}...`)
-
-            await update(k, v, store!);
+            await update(k, v, store![0]);
             setState({ ...state, [k]: v })
         }
     ]
@@ -63,7 +60,7 @@ export default function () {
     return (
         <div style={container}>
             <h1>You've clicked  the button {state.x} times</h1>
-            <button onClick={async () => set('x', 2)}>Increase?</button>
+            <button onClick={async () => set('x', (get('x') || 0) + 1)}>Increase?</button>
         </div>
     )
 }
