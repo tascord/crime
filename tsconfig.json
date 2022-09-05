@@ -1,20 +1,19 @@
 {
-    "include": [
-      "src/**/*"
-    ],
-    "compilerOptions": {
-      "resolveJsonModule": true,
-      "target": "esnext",
-      "module": "esnext",
-      "moduleResolution": "node",
-      "sourceMap": true,
-      "rootDir": "src",
-      "outDir": "dist",
-      "downlevelIteration": true,
-      "strict": true,
-      "esModuleInterop": true,
-      "skipLibCheck": true,
-      "forceConsistentCasingInFileNames": true,
-      "declaration": true
-    }
+  "include": [
+    "src/**/*"
+  ],
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "rootDir": "src",
+    "outDir": "dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
   }
+}

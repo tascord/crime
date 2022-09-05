@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "resolveJsonModule": true,
+        "target": "esnext",
+        "module": "esnext",
+        "moduleResolution": "node",
+        "plugins": [
+            {
+                "transform": "dist/plugin.js"
+            }
+        ]
+    }
+}

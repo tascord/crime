@@ -34,24 +34,54 @@ console.clear();
 await bundler.watch((err, event: any) => {
 
     if (err || event.type === 'buildFailure') {
-        console.log('\n' + 
+
+        const diagnostics = event.diagnostics && event.diagnostics.find((d: any) => d.message);
+        let diagnostics_message;
+
+        if (diagnostics) {
+            const { message, origin, codeFrames, stack, name } = diagnostics;
+            diagnostics_message =
+                Chalk.red('Error: ') + Chalk.whiteBright(message + '\n\tvia ') +
+                Chalk.gray(origin) + '\n\t';
+
+            if (codeFrames) {
+                diagnostics_message +=
+                    Chalk.whiteBright('at ') +
+                    Chalk.gray((codeFrames ?? [])[0]?.filePath ?? 'Unknown file') +
+                    Chalk.whiteBright(`:${(codeFrames ?? [])[0]?.codeHighlights[0]?.start.line ?? 0}:${(codeFrames ?? [])[0]?.codeHighlights[0]?.start.column ?? 0}`);
+            } else {
+                diagnostics_message +=
+                    Chalk.whiteBright('stack:\n\t') +
+                    Chalk.gray(stack).replace(/\n/g, '\n\t');
+            }
+        }
+
+        console.log('\n' +
             Chalk.redBright('🛑 Unable to build:\n') +
-            Chalk.whiteBright(event.diagnostics.find((d: any) => d.message)?.message || err?.message || 'Unknown error')
+            Chalk.whiteBright(diagnostics_message || err?.message || 'Unknown error')
         );
 
         return;
     }
 
     if (!event) return;
-    console.clear();
+    // console.clear();
+    console.log('\n')
 
     const colour = event.type === 'buildSuccess' ? 'greenBright' : 'yellowBright';
-    let changed_files = !event.changedAssets ? [] : [...event.changedAssets.values()].map(v => inspect(v).slice(6, -1)).filter(f => !f.includes('node_modules'));
+    let changed_files: [string, string?][] = !event.changedAssets ? [] :
+        [...event.changedAssets.values()]
+            .map((v, i) => [
+                inspect(v).slice(6, -1),
+                [...event.changedAssets.keys()][i]
+            ] as [string, string])
+            .filter(([f]) => !f.includes('node_modules'));
+
     const changes = changed_files.length;
 
     if (changed_files.length > 5) {
         changed_files = changed_files.slice(0, 5);
-        changed_files.push(`+ ${changes - 5} more`);
+        changed_files.push([`+ ${changes - 5} more`]);
     }
 
 
@@ -62,7 +92,9 @@ await bundler.watch((err, event: any) => {
         Chalk.bold(Chalk.whiteBright(changes) + ' ') +
         Chalk.cyanBright(`Changed file${changes === 1 ? '' : 's'}: \n`) +
         Chalk.whiteBright(
-            changed_files.map((file: string) => ' ' + (!file.toString().startsWith('+') ? '- ' : '') + file.toString()).join('\n')
+            changed_files.map(
+                ([file, hash]: [string, string?]) => ' ' + (!file.toString().startsWith('+') ? '- ' : '') + file.toString() + (hash ? Chalk.gray(` [${hash}]`) : '')
+            ).join('\n')
         ) + '\n\n' +
         Chalk.cyanBright(`Site available at `) +
         Chalk.bold(Chalk.whiteBright(`http://localhost:${port}/`))

@@ -1,12 +1,13 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 
 import Index from "../test/app/index";
 
 const Router = () => {
-    return <Index/>
-    // return (<></>);
+    return <Index />
 }
 
-const app = document.getElementById("root");
-ReactDOM.render(<Router />, app);
+const container = document.getElementById("root");
+const root = createRoot(container!);
+
+root.render(<Router />);
